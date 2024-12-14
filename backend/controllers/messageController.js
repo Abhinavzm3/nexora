@@ -20,10 +20,15 @@ export const sendMessage =async(req,res)=>{
 
         }
 
-        const newmessage=await Message.create({
+        const newMessage=await Message.create({
             senderId,
-            reciverId,message
+            reciverId,
+            message
         })
+
+        if(newMessage){
+            gotConversation
+        }
         
     } catch (error) {
         console.log(error)
