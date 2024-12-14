@@ -27,10 +27,38 @@ export const sendMessage =async(req,res)=>{
         })
 
         if(newMessage){
-            gotConversation
-        }
+            gotConversation.message.push(newMessage._id)
+        };
+        await gotConversation.save();
+
+        //socket
+
+        return res.status(200).send({
+            message:"message sent !"
+            ,
+            success:true
+        })
         
     } catch (error) {
         console.log(error)
+    }
+}
+
+
+export const getMessage=async (req,res)=>{
+    try {
+        const reciverId=req.params.id;
+        const senderId=req.id;
+        const converstaion=await Conversation.findOne({
+    participants:{$all:[senderId,reciverId]}
+        }).populate('message')
+        return res.status(200).send({
+            messages: conversation.message, // Assuming 'message' is an array
+        });
+        
+    } catch (error) {
+
+        console.log(error)
+        
     }
 }
