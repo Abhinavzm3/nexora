@@ -1,25 +1,43 @@
-import React from 'react'
+import React from "react";
 import { IoLogOut, IoSearchSharp } from "react-icons/io5";
-import OtherUsers from './OtherUsers';
+import OtherUsers from "./OtherUsers";
+
 const Sidebar = () => {
   return (
-    <div className='border-r border-slate-500 p-4 flex flex-col'>
-      <form action=''>
-        <input type='text' className='input input-bordered rounded-md'
-         placeholder='Search...'></input>
-<button type='submit' className='btn btn-circle bg-sky-200'>
-    <IoSearchSharp className='w-6 h-6 outline-none'></IoSearchSharp>
-</button>
+    <div className="h-full border-r border-gray-700 bg-gray-900 p-4 flex flex-col text-gray-300">
+      {/* Search Form */}
+      <form className="flex items-center gap-2 mb-4">
+        <input
+          type="text"
+          className="input input-bordered rounded-md flex-1 px-4 py-2 bg-gray-800 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Search..."
+        />
+        <button
+          type="submit"
+          className="btn btn-circle bg-blue-500 hover:bg-blue-600 text-white transition duration-200"
+        >
+          <IoSearchSharp className="w-6 h-6" />
+        </button>
       </form>
-      <div className='divider px-3'></div>
-      <OtherUsers></OtherUsers>
-      <div className='mt-2'><button className='btn btn-sm'>
-        Logout
-      </button>
 
+      {/* Divider */}
+      <div className="divider border-t border-gray-700 my-2"></div>
+
+      {/* User List */}
+      <div className="flex-1 overflow-y-auto">
+        <OtherUsers />
+        
+      </div>
+
+      {/* Logout Button */}
+      <div className="mt-4">
+        <button className="btn btn-block bg-red-600 hover:bg-red-700 text-white transition duration-200 flex items-center justify-center gap-2">
+          <IoLogOut className="w-5 h-5" />
+          Logout
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

@@ -1,26 +1,36 @@
-import React from 'react'
-
-const OtherUser = () => {
-  return (
-    <div>
-    <div className='gap-2 flex items-center hover:bg-zinc-200 rounded-sm p-2 cursor-pointer'>
-        <div className='avatar online'>
-            <div className='w-12 rounded-full'>
-                <img src="https://www.google.com//url?sa=i&url=https%3A%2F%2Fletsenhance.io%2F&psig=AOvVaw0oc80Q96KU1W_ipXLimkkt&ust=1734277482933000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPCr8pDTp4oDFQAAAAAdAAAAABAE" alt="img"></img>
-            </div>
-        </div>
-        <div className='flex-col flex'>
-            <div className='flex gap-2 flex-1'>
-                <p>Abhinav</p>
-            </div>
-        </div>
-
-    </div>
-    <div className='divider my-0 py-0 h-1'></div>
-
+import React from "react";
+const OtherUser = (props) => {
   
-</div>
-  )
-}
+  
+  const user=props.user
+  
+  
+  return (
+    <div className="flex flex-col">
+      {/* User Section */}
+      <div className="flex items-center gap-4 p-4 hover:bg-gray-200 transition-all rounded-lg cursor-pointer">
+        {/* Avatar */}
+        <div className="avatar">
+        <div className="avatar online w-full h-full">
+          <div className="w-14 h-14 rounded-full border-2 border-indigo-500 overflow-hidden">
+            <img
+              src={user?.profilePhoto} // Placeholder image if no avatar provided
+              
+              alt="User Avatar"
+              className="object-cover"
+            />
+          </div>
+        </div></div>
+        {/* User Info */}
+        <div className="flex flex-col justify-center">
+          <p className="text-lg font-medium text-gray-800">{user?.fullName}</p>
+          <p className="text-sm text-gray-500">Click to start a chat</p>
+        </div>
+      </div>
+      {/* Divider */}
+      <div className="w-full h-0.5 bg-gray-300"></div>
+    </div>
+  );
+};
 
-export default OtherUser
+export default OtherUser;

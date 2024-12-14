@@ -6,6 +6,6 @@ import {isAuthenticated} from '../middleware/isAuth.js'
 router.route('/register').post(register)
 router.route('/login').post(login)
 router.route('/logout').post(logout)
-router.route('/getOtherUsers').post(isAuthenticated,getOtherUser)
+router.route('/').post(isAuthenticated,getOtherUser)
 
 export default router

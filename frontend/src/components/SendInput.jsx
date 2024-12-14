@@ -1,20 +1,26 @@
-import React from 'react'
+import React from 'react';
+import { IoSend } from 'react-icons/io5';
 
 const SendInput = () => {
   return (
-    <div>
-        <form className='my-3 px-4'>
-            <div className='w-full relative'>
-                <input type="text" 
-                placeholder='send a message.....'
-                className='border text-sm border-zinc-500
-                 rounded-lg block w-full bg-gray-600 text-white'/>
-                 <button className='absolute flex items-center'
-            </div>
-        </form>
-      
+    <div className="p-4">
+      <form className="flex items-center">
+        <div className="relative w-full">
+          <input
+            type="text"
+            placeholder="Send a message..."
+            className="w-full py-2 px-4 text-sm bg-gray-700 text-white border border-zinc-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+          />
+          <button
+            type="submit"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-xl text-sky-500 hover:text-sky-600 transition duration-200"
+          >
+            <IoSend />
+          </button>
+        </div>
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default SendInput
+export default SendInput;

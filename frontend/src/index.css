@@ -19,3 +19,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Scrollbar width */
+::-webkit-scrollbar {
+  width: 6px; /* Consistent width */
+  height: 6px; /* For horizontal scrollbars */
+}
+
+/* Scrollbar track */
+::-webkit-scrollbar-track {
+  background: #000; /* Track color */
+}
+
+/* Scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background: white; /* Thumb color */
+  border-radius: 10px; /* Rounded edges */
+}
+
+

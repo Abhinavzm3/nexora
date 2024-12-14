@@ -1,14 +1,16 @@
-import React from 'react'
-import MessageContainer from './MessageContainer'
-import Sidebar from './Sidebar'
+import React from 'react';
+import MessageContainer from './MessageContainer';
+import Sidebar from './Sidebar';
 
 const HomePage = () => {
   return (
-    <div className='felx flex-row sm:h-[450px] md:h-[550px] rounded-lg overflow bg-gray-400 bg-clip-padding backdrop-blur-lg bg-opacity-0'>
-      <Sidebar></Sidebar>
-      <MessageContainer></MessageContainer>
+    <div className="flex justify-center items-center min-h-screen bg-gray-800 p-4">
+      <div className="flex flex-row sm:w-full md:w-[800px] h-[550px] rounded-lg overflow-hidden bg-gray-700 shadow-lg">
+        <Sidebar />
+        <MessageContainer />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
