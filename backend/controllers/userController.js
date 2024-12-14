@@ -137,7 +137,7 @@ export const getOtherUser=async(req,res)=>{
         
         const otherUsers=await User.find({_id:{$ne:loggedInUserId}}).select("-password")
 
-        return res.status(200).json({
+        return res.status(200).send({
             otherUsers
         })
     } catch (error) {

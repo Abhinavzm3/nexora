@@ -1,14 +1,21 @@
 import React from "react";
+import { setSelectedUser } from "../redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 const OtherUser = (props) => {
-  
-  
+  const dispatch=useDispatch();
+  const {selectedUser}= useSelector(store=>store.user)
   const user=props.user
-  
+  const SelectedUserHandler=(user)=>{
+
+dispatch(setSelectedUser(user))
+
+  }
   
   return (
-    <div className="flex flex-col">
+    <div onClick={()=>{SelectedUserHandler(user)}} className="flex flex-col ">
       {/* User Section */}
-      <div className="flex items-center gap-4 p-4 hover:bg-gray-200 transition-all rounded-lg cursor-pointer">
+      <div 
+      className={` ${selectedUser?._id===user?._id ? `bg-gray-200`:''} flex items-center gap-4 p-4 hover: transition-all rounded-lg cursor-pointer`}>
         {/* Avatar */}
         <div className="avatar">
         <div className="avatar online w-full h-full">

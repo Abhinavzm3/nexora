@@ -3,9 +3,9 @@ import { IoLogOut, IoSearchSharp } from "react-icons/io5";
 import OtherUsers from "./OtherUsers";
 import axios from "axios";
 import toast from "react-hot-toast";
-
+import {useNavigate} from 'react-router-dom'
 const Sidebar = () => {
-
+const navigate=useNavigate()
   const LogOutHandler=async()=>{
 
     try {
@@ -13,6 +13,7 @@ const Sidebar = () => {
       const res=await axios.post( "http://localhost:4000/api/v1/user/logout")
       if(res.data.success){
         toast.success("Logout Successfully!")
+    navigate('/login')
       }
       else{
         toast.error("Error in Logout")
