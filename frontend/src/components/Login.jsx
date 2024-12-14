@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
-
+import axios from "axios";
+import {Link,useNavigate} from 'react-router-dom'
+import toast from "react-hot-toast";
+import {useDispatch, useDispath} from 'react-redux'
+import { setAuthUser } from "../redux/userSlice";
 const Login = () => {
 const [user,setUser]=useState({
     username:"",
     password:""
 })
+const navigate=useNavigate()
+const dispatch=useDispatch()
 
 const SubmitHandler=async(e)=>{
     e.preventDefault();
@@ -14,6 +19,30 @@ const SubmitHandler=async(e)=>{
         username:"",
         password:""
     })
+
+
+    try {
+
+        const res = await axios.post(
+            "http://localhost:4000/api/v1/user/login",
+            user,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            }
+          );
+
+          if(res.data.success){
+            dispatch(setAuthUser(res.data))
+            toast.success("Login Successful")
+            navigate('/')
+          }
+        
+    } catch (error) {
+        
+    }
 }
 
   return (

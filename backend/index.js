@@ -1,29 +1,38 @@
-import express from 'express'
-const app=express()
-import env from 'dotenv'
-import userRoute from './routes/userRoutes.js'
-import cookieParser from 'cookie-parser'
-import {connectDB} from './config/db.js'
-import messageRouter from './routes/messageRouter.js'
-env.config()
-import cors from 'cors'
+import express from 'express';
+import env from 'dotenv';
+import userRoute from './routes/userRoutes.js';
+import messageRouter from './routes/messageRouter.js';
+import cookieParser from 'cookie-parser';
+import { connectDB } from './config/db.js';
+import cors from 'cors';
 
-const corsOption={
-    origin:'http://localhost:3000',
-    credentials:true
-}
-app.use(cors(corsOption))
-app.use(express.urlencoded({extended:true}))
-app.use(express.json())
-app.use(cookieParser)
-app.use('api/v1/user',userRoute);
-app.use('api/v1/message',messageRouter);
+const app = express();
 
-app.get('/',(req,res)=>{
-    res.send("hi")
-})
+env.config();
 
-app.listen(process.env.PORT,()=>{
-connectDB()
-    console.log("running on 3000")
-})
+const corsOption = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
+app.use(cors(corsOption));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
+
+// Routes
+app.use('/api/v1/user', userRoute);
+app.use('/api/v1/message', messageRouter);
+
+app.get('/', (req, res) => {
+  res.send('Hi, server is running!');
+});
+
+const PORT = process.env.PORT || 4000;
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}).catch((error) => {
+  console.error('Failed to connect to the database:', error.message);
+});

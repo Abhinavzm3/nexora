@@ -1,42 +1,56 @@
 import React, { useState } from "react";
-import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+
 const Signup = () => {
   const [user, setUser] = useState({
-    fullname: "",
+    fullName: "",
     username: "",
     password: "",
     gender: "",
     confirmPassword: "",
   });
 
+  const navigate = useNavigate();
+
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!user.fullName || !user.username || !user.password || !user.gender) {
+      return toast.error("Please fill out all fields.");
+    }
+    if (user.password !== user.confirmPassword) {
+      return toast.error("Passwords do not match.");
+    }
 
-    const res=await axios.post('http://localhost:8000/api/v1/user/register',user,{
-        headers: {
+    console.log(user)
+    try {
+        
+      const res = await axios.post(
+        "http://localhost:4000/api/v1/user/register",
+        user,
+        {
+          headers: {
             "Content-Type": "application/json",
-          }
-        ,withCredentials:true
-    })
-
-    if(res.data){
-        toast.success(res.data.message)
-
+          },
+          withCredentials: true,
+        }
+      );
+      toast.success(res.data.message);
+      setUser({
+        fullName: "",
+        username: "",
+        password: "",
+        gender: "",
+        confirmPassword: "",
+      });
+      navigate("/login");
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+      toast.error(
+        error.response?.data?.message || "Failed to signup. Please try again."
+      );
     }
-    else{
-        toast.error("failed to signup")
-    }
-    // setUser({
-    //     fullname: "",
-    //     username: "",
-    //     password: "",
-    //     gender: "",
-    //     confirmPassword: "",
-    //   })
-
-    // Add your form submission logic here
   };
 
   return (
@@ -54,11 +68,11 @@ const Signup = () => {
               <span className="label-text">Full Name</span>
             </label>
             <input
-              value={user.fullname}
+              value={user.fullName}
               onChange={(e) =>
                 setUser((prevState) => ({
                   ...prevState,
-                  fullname: e.target.value,
+                  fullName: e.target.value,
                 }))
               }
               type="text"
@@ -123,27 +137,28 @@ const Signup = () => {
               className="input input-bordered"
             />
           </div>
+
           {/* Gender */}
           <div className="form-control mb-4 flex-row gap-4 text-center justify-center content-center">
             Male:
             <input
-              value={"male"}
+              value="male"
+              checked={user.gender === "male"}
               onChange={(e) => setUser({ ...user, gender: e.target.value })}
               type="radio"
               name="gender"
               className="radio radio-primary"
             />
-            Female:{" "}
+            Female:
             <input
-              value={"female"}
+              value="female"
+              checked={user.gender === "female"}
               onChange={(e) => setUser({ ...user, gender: e.target.value })}
-              name="gender"
               type="radio"
+              name="gender"
               className="radio radio-primary"
-
             />
           </div>
-          
 
           {/* Submit Button */}
           <div className="form-control">
@@ -156,9 +171,9 @@ const Signup = () => {
         {/* Redirect to Login */}
         <p className="text-center text-gray-600 mt-4">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-500 hover:underline">
+          <Link to="/login" className="text-blue-500 hover:underline">
             Log in
-          </a>
+          </Link>
         </p>
       </div>
     </div>
