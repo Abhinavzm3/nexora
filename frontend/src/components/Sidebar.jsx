@@ -1,8 +1,31 @@
 import React from "react";
 import { IoLogOut, IoSearchSharp } from "react-icons/io5";
 import OtherUsers from "./OtherUsers";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Sidebar = () => {
+
+  const LogOutHandler=async()=>{
+
+    try {
+     
+      const res=await axios.post( "http://localhost:4000/api/v1/user/logout")
+      if(res.data.success){
+        toast.success("Logout Successfully!")
+      }
+      else{
+        toast.error("Error in Logout")
+      }
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+
+  }
+
+
   return (
     <div className="h-full border-r border-gray-700 bg-gray-900 p-4 flex flex-col text-gray-300">
       {/* Search Form */}
@@ -31,8 +54,8 @@ const Sidebar = () => {
 
       {/* Logout Button */}
       <div className="mt-4">
-        <button className="btn btn-block bg-red-600 hover:bg-red-700 text-white transition duration-200 flex items-center justify-center gap-2">
-          <IoLogOut className="w-5 h-5" />
+        <button onClick={LogOutHandler} className="btn btn-block bg-red-600 hover:bg-red-700 text-white transition duration-200 flex items-center justify-center gap-2">
+          <IoLogOut  className="w-5 h-5" />
           Logout
         </button>
       </div>
