@@ -25,6 +25,7 @@ const SendInput = () => {
       );
       if (res.data.success) {
         dispatch(setMessages([...messages,res.data.newMessage]))
+        setMessage("")
        
       }
     } catch (error) {

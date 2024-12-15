@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { IoLogOut, IoSearchSharp } from "react-icons/io5";
-import OtherUsers from "./OtherUsers";
+import OtherUser from "./OtherUsers";
 import axios from "axios";
 import toast from "react-hot-toast";
 import {useNavigate} from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
+import { setOtherUsers } from "../redux/userSlice";
 const Sidebar = () => {
 const navigate=useNavigate()
-
+const {OtherUsers}=useSelector(store=>store.user)
 const [search,setSearch]=useState('')
+const dispatch=useDispatch()
   const LogOutHandler=async()=>{
 
     try {
@@ -28,11 +31,25 @@ const [search,setSearch]=useState('')
 
   }
 
+ 
+ 
+  const submitHandler=(e)=>{
+    e.preventDefault();
+    const conversationUser=OtherUsers?.find((user)=>user.fullName.toLowerCase().includes(search.toLowerCase()))
+if(conversationUser){
+  dispatch(setOtherUsers([conversationUser]))
+
+}
+
+else{
+  toast.error("user not found")
+}
+  }
 
   return (
     <div className="h-full border-r border-gray-700 bg-gray-900 p-4 flex flex-col text-gray-300">
       {/* Search Form */}
-      <form onsclassName="flex items-center gap-2 mb-4">
+      <form onSubmit={submitHandler} className="flex items-center gap-2 mb-4">
         <input
           type="text"
           value={search}
@@ -50,7 +67,7 @@ const [search,setSearch]=useState('')
 
      
       <div className="flex-1 overflow-y-auto">
-        <OtherUsers />
+        <OtherUser />
         
       </div>
 
