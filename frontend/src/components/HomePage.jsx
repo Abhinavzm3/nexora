@@ -4,8 +4,8 @@ import Sidebar from './Sidebar';
 
 const HomePage = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800 p-4">
-      <div className="flex flex-row sm:w-full md:w-[800px] h-[550px] rounded-lg overflow-hidden bg-gray-700 shadow-lg">
+    <div className="flex justify-center  items-center min-h-screen bg-gray-800 p-4">
+      <div className="flex flex-row w-auto  h-[550px] rounded-lg overflow-hidden bg-gray-700 shadow-lg">
         <Sidebar />
         <MessageContainer />
       </div>

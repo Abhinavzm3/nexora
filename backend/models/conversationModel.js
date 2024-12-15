@@ -9,8 +9,8 @@ const ConvSchema = new mongoose.Schema(
       },
     ],
     message: [{
-      type: String,
-      required: true, // Message content is mandatory
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message", // Message content is mandatory
     }],
   },
   { timestamps: true } // Automatically adds createdAt and updatedAt fields

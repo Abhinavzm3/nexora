@@ -36,6 +36,7 @@ const SubmitHandler=async(e)=>{
 
           if(res.data.success){
             dispatch(setAuthUser(res.data))
+            console.log(res.data)
             toast.success("Login Successful")
             navigate('/')
           }

@@ -4,7 +4,7 @@ import { isAuthenticated } from '../middleware/isAuth.js'
 const router=express.Router()
 
 router.route('/send/:id').post(isAuthenticated, sendMessage)
-router.route('/get/:id').get(isAuthenticated, getMessage)
+router.route('/get/:id').post(isAuthenticated, getMessage)
 
 
 

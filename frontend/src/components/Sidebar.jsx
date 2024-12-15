@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoLogOut, IoSearchSharp } from "react-icons/io5";
 import OtherUsers from "./OtherUsers";
 import axios from "axios";
@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 import {useNavigate} from 'react-router-dom'
 const Sidebar = () => {
 const navigate=useNavigate()
+
+const [search,setSearch]=useState('')
   const LogOutHandler=async()=>{
 
     try {
@@ -30,9 +32,11 @@ const navigate=useNavigate()
   return (
     <div className="h-full border-r border-gray-700 bg-gray-900 p-4 flex flex-col text-gray-300">
       {/* Search Form */}
-      <form className="flex items-center gap-2 mb-4">
+      <form onsclassName="flex items-center gap-2 mb-4">
         <input
           type="text"
+          value={search}
+          onChange={(e)=>setSearch(e.target.value)}
           className="input input-bordered rounded-md flex-1 px-4 py-2 bg-gray-800 text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Search..."
         />
@@ -44,10 +48,7 @@ const navigate=useNavigate()
         </button>
       </form>
 
-      {/* Divider */}
-      <div className="divider border-t border-gray-700 my-2"></div>
-
-      {/* User List */}
+     
       <div className="flex-1 overflow-y-auto">
         <OtherUsers />
         

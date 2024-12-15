@@ -6,13 +6,14 @@ export const sendMessage =async(req,res)=>{
 
         const senderId=req.id;
         const reciverId=req.params.id;
-        const message=req.body;
+
+        const {message}=req.body;
 
         let gotConversation=await Conversation.findOne({
             participants:{$all:[senderId,reciverId]}
         })
 
-        if(gotConversation){
+        if(!gotConversation){
              
             gotConversation=await Conversation.create({
                 participants:[senderId,reciverId]
@@ -34,9 +35,9 @@ export const sendMessage =async(req,res)=>{
         //socket
 
         return res.status(200).send({
-            message:"message sent !"
-            ,
-            success:true
+            message:"message sent !",
+            success:true,
+            newMessage
         })
         
     } catch (error) {
@@ -53,7 +54,7 @@ export const getMessage=async (req,res)=>{
     participants:{$all:[senderId,reciverId]}
         }).populate('message')
         return res.status(200).send({
-            messages: conversation.message, // Assuming 'message' is an array
+            messages: converstaion?.message, // Assuming 'message' is an array
         });
         
     } catch (error) {

@@ -35,7 +35,7 @@ dispatch(setSelectedUser(user))
         </div>
       </div>
       {/* Divider */}
-      <div className="w-full h-0.5 bg-gray-300"></div>
+      <div className=" divider h-1/3 bg-gray-300"></div>
     </div>
   );
 };

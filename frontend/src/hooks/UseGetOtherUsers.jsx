@@ -8,7 +8,6 @@ const dispatch=useDispatch()
     try {
       axios.defaults.withCredentials = true;
       const res = await axios.post("http://localhost:4000/api/v1/user");
-      console.log(res.data);
       dispatch(setOtherUsers(res.data.otherUsers))
     } catch (error) {
       console.error("Error fetching other users:", error.response?.data || error.message);
