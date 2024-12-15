@@ -6,8 +6,7 @@ import cookieParser from 'cookie-parser';
 import { connectDB } from './config/db.js';
 import cors from 'cors';
 
-const app = express();
-
+import { app,server } from "./socket/socket.js"
 env.config();
 
 const corsOption = {
@@ -30,7 +29,7 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 4000;
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
 }).catch((error) => {

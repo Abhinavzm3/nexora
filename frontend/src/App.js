@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 import io from "socket.io-client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setOnlineUsers } from "./redux/userSlice";
+import { setAuthUser, setOnlineUsers } from "./redux/userSlice";
 
 const router = createBrowserRouter([
   {
@@ -31,11 +31,11 @@ function App() {
 
   useEffect(() => {
     if (authUser) {
-      // Establish socket connection
       const newSocket = io("http://localhost:4000/", {
-        query: { userId: authUser._id },
+        query: {userId: authUser._id},
+        
       });
-      setSocket(newSocket); // Save socket in state
+      setSocket(newSocket); // save socket in state
 
       // Listen for online users
       newSocket.on("getOnlineUsers", (onlineUsers) => {

@@ -14,7 +14,7 @@ const dispatch=useDispatch()
 
 const SubmitHandler=async(e)=>{
     e.preventDefault();
-    console.log(user)
+    
     setUser({
         username:"",
         password:""
@@ -37,7 +37,10 @@ const SubmitHandler=async(e)=>{
           if(res.data.success){
             dispatch(setAuthUser(res.data))
             console.log(res.data)
+            sessionStorage.setItem("authUser",JSON.stringify(res.data))
+            console.log(JSON.parse(sessionStorage.getItem("authUser")))
             toast.success("Login Successful")
+
             navigate('/')
           }
         

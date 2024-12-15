@@ -96,6 +96,7 @@ const token=await jwt.sign(tokenData,process.env.JWT_SECRET_KEY,{expiresIn:'7d'}
 return res.status(201).cookie("token",token,{httpOnly:true}).send({
     username:user.username,
     fullName:user.fullname,
+    _id:user._id,
     profilePhoto:user.profilePhoto,
     gender:user.gender,
     success:true

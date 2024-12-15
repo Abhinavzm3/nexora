@@ -5,6 +5,7 @@ const OtherUser = (props) => {
   const dispatch=useDispatch();
   const {selectedUser,onlineUsers}= useSelector(store=>store.user)
   const user=props.user
+  
   const isonline=onlineUsers.includes(user._id)
   const SelectedUserHandler=(user)=>{
 
