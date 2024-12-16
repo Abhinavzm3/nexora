@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import MediaRenderer from "./MediaRender";
 
 const Message = ({ message }) => {
   const scroll = useRef();
@@ -7,14 +8,17 @@ const Message = ({ message }) => {
 
   useEffect(() => {
     // Scroll to the new message whenever a new message is added
-    scroll.current?.scrollIntoView({ behavior: 'smooth' });
+    scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
 
   // Ensure you are comparing senderId with authUser._id
   const isSender = message?.senderId === authUser?._id;
 
   return (
-    <div ref={scroll} className={`chat ${isSender ? 'chat-end' : 'chat-start'}`}>
+    <div
+      ref={scroll}
+      className={`chat ${isSender ? "chat-end" : "chat-start"}`}
+    >
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
           {/* Show the correct profile image based on who sent the message */}
@@ -31,10 +35,30 @@ const Message = ({ message }) => {
       </div>
       {/* Change background color depending on sender */}
       <div
-        className={`chat-bubble ${isSender ? '' : 'bg-gray-200 text-black'}`}
+        className={`chat-bubble ${isSender ? "" : "bg-gray-200 text-black"}`}
       >
         {message?.message}
+
+         {/* Image Preview */}
+      
+         {/* {message.imageUrl && (
+            <div className="mt-2">
+              <a href={message.imageUrl} download={message.imageUrl} target="_blank" rel="noopener noreferrer"> <img
+                src={message.imageUrl}
+                alt="uploaded"
+                className="w-24 h-24 object-cover border rounded-lg"
+              /></a>
+             
+            </div>
+          )} */}
+
+
+{message.imageUrl && (<MediaRenderer fileUrl={message.imageUrl}></MediaRenderer>
+)}
+
       </div>
+
+        
     </div>
   );
 };

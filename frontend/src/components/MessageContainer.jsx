@@ -27,7 +27,7 @@ const MessageContainer = () => {
   }
 
   return (
-    <div className="w-96 flex flex-col bg-gray-900 shadow-md rounded-md overflow-hidden">
+    <div className="w-full flex flex-col bg-gray-900 shadow-md rounded-md overflow-hidden">
       <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-indigo-600 to-purple-600">
         <div className="avatar">
           <div className="w-14 h-14 rounded-full border-2 border-white overflow-hidden">

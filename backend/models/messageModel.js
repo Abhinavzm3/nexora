@@ -14,7 +14,11 @@ const messageSchema=new mongoose.Schema({
     },
     message:{
         type:String,
-        required:true
+        required:false
+    },
+      imageUrl: { // Add this field to store the image URL
+        type: String,
+        required: false
     }
    
 },{timestamps:true})

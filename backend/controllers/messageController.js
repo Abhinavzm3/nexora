@@ -9,6 +9,7 @@ export const sendMessage =async(req,res)=>{
         const reciverId=req.params.id;
 
         const {message}=req.body;
+        const {imageUrl}=req.body
 
         let gotConversation=await Conversation.findOne({
             participants:{$all:[senderId,reciverId]}
@@ -25,7 +26,8 @@ export const sendMessage =async(req,res)=>{
         const newMessage=await Message.create({
             senderId,
             reciverId,
-            message
+            message,
+            imageUrl
         })
 
         if(newMessage){
