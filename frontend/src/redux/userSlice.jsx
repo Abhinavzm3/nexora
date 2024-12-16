@@ -7,7 +7,7 @@ const userSlice=createSlice({
         authUser:null,
         OtherUsers:null,
         selectedUser:null,
-        onlineUsers:[]
+        onlineUsers:null,
     },
     reducers:{
         setAuthUser:(state,action)=>{

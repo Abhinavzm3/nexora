@@ -1,62 +1,63 @@
-import { useEffect, useState } from "react";
-import "./App.css";
-import HomePage from "./components/HomePage";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import { Toaster } from "react-hot-toast";
+import Signup from './components/Signup';
+import './App.css';
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import HomePage from './components/HomePage';
+import Login from './components/Login';
+import { useEffect, useState } from 'react';
+import {useSelector,useDispatch} from "react-redux";
 import io from "socket.io-client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setAuthUser, setOnlineUsers } from "./redux/userSlice";
+import { setSocket } from './redux/socketSlice';
+import { setOnlineUsers } from './redux/userSlice';
+
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <HomePage />,
+    path:"/",
+    element:<HomePage/>
   },
   {
-    path: "/login",
-    element: <Login />,
+    path:"/signup",
+    element:<Signup/>
   },
   {
-    path: "/signup",
-    element: <Signup />,
+    path:"/login",
+    element:<Login/>
   },
-]);
 
-function App() {
-  const [socket, setSocket] = useState(null); // Manage socket in React state
-  const { authUser } = useSelector((store) => store.user); // Access authenticated user from Redux
+])
+
+function App() { 
+  const {authUser} = useSelector(store=>store.user);
+  const {socket} = useSelector(store=>store.socket);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (authUser) {
-      const newSocket = io("http://localhost:4000/", {
-        query: {userId: authUser._id},
-        
+  useEffect(()=>{
+    if(authUser){
+      const socketio = io(`http://localhost:4000/`, {
+          query:{
+            userId:authUser._id
+          }
       });
-      setSocket(newSocket); // save socket in state
+      dispatch(setSocket(socketio));
 
-      // Listen for online users
-      newSocket.on("getOnlineUsers", (onlineUsers) => {
-        dispatch(setOnlineUsers(onlineUsers)); // Update online users in Redux
+      socketio?.on('getOnlineUsers', (onlineUsers)=>{
+        dispatch(setOnlineUsers(onlineUsers))
       });
-
-      // Cleanup socket on unmount or when authUser changes
-      return () => {
-        if (newSocket) {
-          newSocket.close();
-          setSocket(null);
-        }
-      };
+      return () => socketio.close();
+    }else{
+      if(socket){
+        socket.close();
+        dispatch(setSocket(null));
+      }
     }
-  }, [authUser, dispatch]);
+
+  },[authUser]);
 
   return (
-    <div className="App h-screen items-center">
-      <Toaster />
-      <RouterProvider router={router} />
+    <div className="p-4 h-screen flex items-center justify-center">
+      <RouterProvider router={router}/>
     </div>
+
   );
 }
 

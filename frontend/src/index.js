@@ -17,6 +17,8 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <App />
+        {/* Toast notifications should be inside the gate */}
+        <Toaster />
       </PersistGate>
     </Provider>
   </React.StrictMode>

@@ -1,44 +1,31 @@
-import React from "react";
-import { setSelectedUser } from "../redux/userSlice";
-import { useDispatch, useSelector } from "react-redux";
-const OtherUser = (props) => {
-  const dispatch=useDispatch();
-  const {selectedUser,onlineUsers}= useSelector(store=>store.user)
-  const user=props.user
-  
-  const isonline=onlineUsers.includes(user._id)
-  const SelectedUserHandler=(user)=>{
+import React from 'react'
+import { useDispatch,useSelector } from "react-redux";
+import { setSelectedUser } from '../redux/userSlice';
 
-dispatch(setSelectedUser(user))
+const OtherUser = ({ user }) => {
+    const dispatch = useDispatch();
+    const {selectedUser, onlineUsers} = useSelector(store=>store.user);
+    const isOnline = onlineUsers?.includes(user._id);
+    const selectedUserHandler = (user) => {
+        dispatch(setSelectedUser(user));
+    }
+    return (
+        <>
+            <div onClick={() => selectedUserHandler(user)} className={` ${selectedUser?._id === user?._id ? 'bg-zinc-200 text-black' : 'text-white'} flex gap-2 hover:text-black items-center hover:bg-zinc-200 rounded p-2 cursor-pointer`}>
+                <div className={`avatar ${isOnline ? 'online' : '' }`}>
+                    <div className='w-12 rounded-full'>
+                        <img src={user?.profilePhoto} alt="user-profile" />
+                    </div>
+                </div>
+                <div className='flex flex-col flex-1'>
+                    <div className='flex justify-between gap-2 '>
+                        <p>{user?.fullName}</p>
+                    </div>
+                </div>
+            </div>
+            <div className='divider my-0 py-0 h-1'></div>
+        </>
+    )
+}
 
-  }
-  
-  return (
-    <div onClick={()=>{SelectedUserHandler(user)}} className="flex flex-col ">
-      {/* User Section */}
-      <div 
-      className={` ${selectedUser?._id===user?._id ? `bg-gray-200`:''} flex items-center gap-4 p-4 hover: transition-all rounded-lg cursor-pointer`}>
-        {/* Avatar */}
-        <div className="avatar">
-        <div className={`${isonline}?  avatar online w-full h-full : `}>
-          <div className="w-14 h-14 rounded-full border-2 border-indigo-500 overflow-hidden">
-            <img
-              src={user?.profilePhoto} // Placeholder image if no avatar provided
-              
-              alt="User Avatar"
-              className="object-cover"
-            />
-          </div>
-        </div></div>
-        {/* User Info */}
-        <div className="flex flex-col justify-center">
-          <p className="text-lg font-medium text-gray-800">{user?.fullName}</p>
-        </div>
-      </div>
-      {/* Divider */}
-      <div className=" divider h-1/3 bg-gray-300"></div>
-    </div>
-  );
-};
-
-export default OtherUser;
+export default OtherUser

@@ -5,21 +5,19 @@ import { setMessages } from '../redux/messageSlice';
 const useGetRealTimeMessage = () => {
   const dispatch = useDispatch();
   const { socket } = useSelector((store) => store.socket);
+  const {messages} = useSelector(store=>store.message);
 
   useEffect(() => {
-    // Check if socket exists
     if (socket) {
-      socket.on('newMessage', (newMessage) => {
-        // Update messages using a function to get the current state
-        dispatch((prevState) => setMessages((messages) => [...messages,newMessage]));
+      socket?.on('newMessage', (newMessage) => {
+        dispatch(setMessages([...messages,newMessage]));
       });
 
-      // Cleanup the event listener when the component unmounts or socket changes
       return () => {
         socket.off('newMessage');
       };
     }
-  }, [socket, dispatch]);
+  },[setMessages, messages]);
 };
 
 export default useGetRealTimeMessage;

@@ -40,7 +40,7 @@ export const sendMessage =async(req,res)=>{
 if(reciverSocketId){
     io.to(reciverSocketId).emit("newMessage",newMessage);
 }
-        return res.status(200).send({
+        return res.status(201).send({
             message:"message sent !",
             success:true,
             newMessage
