@@ -49,7 +49,7 @@ else{
   }
 
   return (
-    <div className="h-full border-r border-gray-700 bg-gray-900 p-4 flex flex-col text-gray-300">
+    <div className="h-full  w-[40%] border-r border-gray-700 bg-gray-900 p-4 flex flex-col text-gray-300">
       {/* Search Form */}
       <form onSubmit={submitHandler} className="flex items-center gap-2 mb-4">
         <input

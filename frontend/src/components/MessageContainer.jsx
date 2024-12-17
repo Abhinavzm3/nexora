@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SendInput from "./SendInput";
 import Messages from "./Messages";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedUser } from "../redux/userSlice";
-
 const MessageContainer = () => {
   const { selectedUser, authUser } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
+
+  
   useEffect(() => {
     // Cleanup when the component is unmounted
     return () => {
@@ -20,14 +21,14 @@ const MessageContainer = () => {
 
   if (!selectedUser) {
     return (
-      <div className="w-96 flex justify-center text-center flex-col bg-gray-900 shadow-md rounded-md overflow-hidden">
+      <div className="w-full flex justify-center text-center flex-col bg-gray-900 shadow-md rounded-md overflow-hidden">
         <h1 className="font-semibold">Hi... {authUserName}, Let's Chat</h1>
       </div>
     );
   }
 
   return (
-    <div className="w-full flex flex-col bg-gray-900 shadow-md rounded-md overflow-hidden">
+    <div className=" w-full flex flex-col bg-gray-900 shadow-md rounded-md overflow-hidden">
       <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-indigo-600 to-purple-600">
         <div className="avatar">
           <div className="w-14 h-14 rounded-full border-2 border-white overflow-hidden">
@@ -41,6 +42,10 @@ const MessageContainer = () => {
         <div className="flex flex-col text-white">
           <p className="text-lg font-semibold">{selectedUser?.fullName || "Start Chatting..."}</p>
         </div>
+
+
+
+
       </div>
 
       <div className="w-full h-0.5 bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500"></div>

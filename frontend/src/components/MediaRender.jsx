@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const MediaRenderer = ({ fileUrl }) => {
   // Helper function to determine the file type
@@ -6,6 +6,9 @@ const MediaRenderer = ({ fileUrl }) => {
     const extension = url.split(".").pop().toLowerCase();
     return extension;
   };
+
+  //   const [pdfUrl,setPdfUrl]=useState(`https://res.cloudinary.com/df9t8sdnq/raw/upload/v1612742520/{fileUrl}`
+  // )
 
   const renderMedia = () => {
     const fileType = getFileType(fileUrl);
@@ -15,24 +18,48 @@ const MediaRenderer = ({ fileUrl }) => {
     const pdfTypes = ["pdf"];
 
     if (imageTypes.includes(fileType)) {
-      return <img src={fileUrl} alt="Media" style={{ maxWidth: "100%", height: "auto" }} />;
+      return (
+        <>
+          <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+            <img
+              className="w-48 h-48 object-cover border rounded-lg"
+              src={fileUrl}
+              alt="Media"
+            />
+            <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+              Download
+            </a>
+          </a>
+        </>
+      );
     } else if (videoTypes.includes(fileType)) {
-      return <video src={fileUrl} controls style={{ maxWidth: "100%", height: "auto" }} />;
+      return (
+        <>
+          {" "}
+          <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+            <video
+              className="w-48 h-48 object-cover border rounded-lg"
+              src={fileUrl}
+              controls
+            />
+          </a>
+          <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+            Download
+          </a>
+        </>
+      );
     } else if (pdfTypes.includes(fileType)) {
       return (
-        <a href={fileUrl} target="_blank" rel="noopener noreferrer">
-             <iframe
-          src={fileUrl} // URL to the PDF
-          width="100%"   // Make iframe responsive
-          height="100%"  // Adjust height to 600px or any preferred height
-          title="PDF Viewer"></iframe>
-  <object data={fileUrl} type="application/pdf" width="100%" height="600" className="w-24 h-24 object-cover border rounded-lg">
-          <p>
-            Your browser does not support PDFs.{" "}
-              Download PDF
-          </p>
-        </object>
-            </a>
+        <>
+          {" "}
+          <object
+            data={fileUrl}
+            type="application/pdf"
+            className="w-56 h-48 object-cover border rounded-lg"/>
+          <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+            Download
+          </a>
+        </>
       );
     } else {
       return (

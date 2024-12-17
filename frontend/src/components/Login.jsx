@@ -50,7 +50,7 @@ const SubmitHandler=async(e)=>{
 }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
+    <div className="min-h-screen w-full bg-gradient-to-r m-0 from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center">
       <div className="card w-96 bg-base-100 shadow-xl p-6">
         <h1 className="text-3xl font-bold text-center mb-4">Log In</h1>
         <p className="text-center text-gray-600 mb-4">

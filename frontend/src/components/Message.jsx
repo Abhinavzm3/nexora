@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import MediaRenderer from "./MediaRender";
+import axios from "axios";
 
 const Message = ({ message }) => {
   const scroll = useRef();
@@ -9,7 +10,15 @@ const Message = ({ message }) => {
   useEffect(() => {
     // Scroll to the new message whenever a new message is added
     scroll.current?.scrollIntoView({ behavior: "smooth" });
+   
   }, [message]);
+
+  //translator
+  
+
+
+
+
 
   // Ensure you are comparing senderId with authUser._id
   const isSender = message?.senderId === authUser?._id;
@@ -35,9 +44,9 @@ const Message = ({ message }) => {
       </div>
       {/* Change background color depending on sender */}
       <div
-        className={`chat-bubble ${isSender ? "" : "bg-gray-200 text-black"}`}
-      >
-        {message?.message}
+        className={`chat-bubble ${isSender ? "" : "bg-gray-200 text-black"} w-auto`}
+      ><p className="break-words "> {message?.message}</p>
+       
 
          {/* Image Preview */}
       
@@ -53,7 +62,7 @@ const Message = ({ message }) => {
           )} */}
 
 
-{message.imageUrl && (<MediaRenderer fileUrl={message.imageUrl}></MediaRenderer>
+{message.imageUrl && (<MediaRenderer  fileUrl={message.imageUrl}></MediaRenderer>
 )}
 
       </div>

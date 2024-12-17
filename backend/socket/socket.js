@@ -31,6 +31,46 @@ io.on("connection", (socket) => {
   // Emit the list of online users to all clients
   io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
+
+
+
+
+
+
+
+   // Handle call initiation
+   socket.on("call-user", ({ offer, targetUserId }) => {
+    const targetSocketId = getReceiverSocketId(targetUserId);
+    if (targetSocketId) {
+      io.to(targetSocketId).emit("receive-call", { offer, from: userId });
+    }
+  });
+
+  // Handle call answer
+  socket.on("answer-call", ({ answer, callerId }) => {
+    const callerSocketId = getReceiverSocketId(callerId);
+    if (callerSocketId) {
+      io.to(callerSocketId).emit("call-answered", { answer });
+    }
+  });
+
+  // Handle ICE candidate exchange
+  socket.on("ice-candidate", ({ candidate, targetUserId }) => {
+    const targetSocketId = getReceiverSocketId(targetUserId);
+    if (targetSocketId) {
+      io.to(targetSocketId).emit("ice-candidate", { candidate });
+    }
+  });
+
+
+
+
+
+
+
+
+
+  
   socket.on("disconnect", () => {
     if (userId) {
       delete userSocketMap[userId];
